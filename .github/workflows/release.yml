@@ -30,17 +30,44 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      # 有未消费的 changeset：开/更新 Version Packages PR；
-      # PR 合并后：打 tag 并 changeset publish
-      - name: Create Release Pull Request or Publish
+      # 判断本次应该做什么：
+      # 1) 有待消费的 changeset -> 开/更新 Version Packages PR（不发布）
+      # 2) 无 changeset 且 HEAD 刚改过 packages/*/package.json（即 version 提交）-> 发布
+      # 3) 其余情况（普通 push）-> 什么都不做，避免把仓库里的当前版本误发到 npm
+      - name: Detect release state
+        id: cs
+        run: |
+          set -euo pipefail
+          pending=$(find .changeset -maxdepth 1 -type f -name '*.md' ! -name 'README.md' | wc -l | tr -d ' ')
+          echo "pending=$pending" >> "$GITHUB_OUTPUT"
+          publish=false
+          if [ "$pending" = "0" ]; then
+            if git rev-parse --verify --quiet HEAD^ >/dev/null \
+              && git diff --name-only HEAD^ HEAD | grep -qE '^packages/[^/]+/package\.json$'; then
+              publish=true
+            fi
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              publish=true
+            fi
+          fi
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
+
+      - name: Create Version Packages PR
+        if: steps.cs.outputs.pending != '0'
         uses: changesets/action@v1
         with:
           version: yarn version:packages
-          publish: yarn release
           commit: 'chore: version packages'
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to npm
+        if: steps.cs.outputs.publish == 'true'
+        run: |
+          yarn build:packages
+          yarn release
+        env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
