@@ -1,6 +1,6 @@
 {
   "name": "@proseharbor-editor/vue3",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "ProseHarbor Editor 的 Vue 3 组件与组合式 API 封装",
   "license": "MIT",
   "keywords": [
