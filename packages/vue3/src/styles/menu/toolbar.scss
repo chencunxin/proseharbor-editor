@@ -1,0 +1,13 @@
+@use '../config' as *;
+
+.#{$prefix}-toolbar-menu {
+  width: auto;
+  height: auto;
+  padding: 0.2rem;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  box-sizing: border-box;
+}

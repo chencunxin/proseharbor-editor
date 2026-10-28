@@ -1,0 +1,23 @@
+@use '../config' as *;
+
+.#{$prefix}-divider {
+  position: relative;
+
+  &--horizontal {
+    border: none;
+    height: 0px;
+    border-top: 1px solid var(--#{$prefix}-border-color);
+    margin: 0.3rem 0;
+  }
+
+  &--vertical {
+    border: none;
+    width: 0px;
+    border-left: 1px solid var(--#{$prefix}-border-color);
+    margin: 0 0.3rem;
+  }
+
+  &--dashed {
+    border-style: dashed;
+  }
+}

@@ -1,0 +1,23 @@
+@use '../config' as *;
+
+.#{$prefix}-bubble-menu {
+  width: auto;
+  height: auto;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.125rem;
+  background-color: var(--#{$prefix}-bg-color);
+  border: 1px solid var(--#{$prefix}-border-color);
+  box-sizing: border-box;
+
+  &__btn-text {
+    margin-left: 0.3rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

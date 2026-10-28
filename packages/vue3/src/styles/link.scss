@@ -1,0 +1,10 @@
+@use 'config' as *;
+
+.#{$prefix}.ProseMirror {
+  a {
+    color: var(--#{$prefix}-theme-primary);
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

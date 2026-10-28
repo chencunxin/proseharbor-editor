@@ -1,0 +1,125 @@
+@use 'config' as *;
+
+.#{$prefix}.ProseMirror {
+  .#{$prefix}__image-wrapper {
+    display: block;
+    max-width: 100%;
+    width: fit-content;
+    margin-top: var(--#{$prefix}-margin);
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    // 行内图片：与文字混排，左右都可以继续输入文字
+    // 左右各留 2px 内边距：光标画在容器边缘，留白后紧贴图片的光标才不会被图片盖住
+    &--inline {
+      display: inline-block;
+      vertical-align: bottom;
+      margin-top: 0;
+      margin-right: 0.25rem;
+      padding: 0 2px;
+    }
+
+    img.#{$prefix}__image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+
+    // 选中状态
+    // 定位上下文只在选中时创建：常驻的 position: relative 会让图片绘制在光标之上，
+    // 遮住紧贴图片的光标；resize 手柄只在选中时出现，此时再定位即可
+    &.is-selected {
+      position: relative;
+
+      img.#{$prefix}__image {
+        outline: 2px solid var(--#{$prefix}-theme-primary);
+        box-shadow: 0 0 0 3px rgba(var(--#{$prefix}-theme-primary-val), 0.2);
+        background-color: transparent;
+      }
+
+      // 显示 resize handles
+      .#{$prefix}__image-resize-handle {
+        display: block;
+      }
+    }
+
+    // Resize handles
+    .#{$prefix}__image-resize-handle {
+      display: none;
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: var(--#{$prefix}-theme-primary);
+      border: 2px solid #fff;
+      border-radius: 50%;
+      z-index: 10;
+      cursor: pointer;
+
+      // 四角位置
+      &--nw {
+        top: -5px;
+        left: -5px;
+        cursor: nw-resize;
+      }
+
+      &--ne {
+        top: -5px;
+        right: -5px;
+        cursor: ne-resize;
+      }
+
+      &--sw {
+        bottom: -5px;
+        left: -5px;
+        cursor: sw-resize;
+      }
+
+      &--se {
+        bottom: -5px;
+        right: -5px;
+        cursor: se-resize;
+      }
+
+      &:hover {
+        background-color: var(--#{$prefix}-theme-primary-hover, var(--#{$prefix}-theme-primary));
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// 气泡菜单中的图片 URL 编辑输入框
+.#{$prefix}-bubble-menu {
+  &--image-edit {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0 0.25rem;
+  }
+
+  &__image-input {
+    width: 200px;
+    height: 28px;
+    border: 1px solid var(--#{$prefix}-border-color);
+    border-radius: 0.375rem;
+    padding: 0 0.5rem;
+    background-color: var(--#{$prefix}-bg-color);
+    color: var(--#{$prefix}-text-color);
+    font-size: 0.875rem;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: var(--#{$prefix}-theme-primary);
+    }
+
+    &::placeholder {
+      color: var(--#{$prefix}-text-color-3);
+    }
+  }
+}

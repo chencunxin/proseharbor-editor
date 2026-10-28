@@ -1,0 +1,42 @@
+{
+  "name": "proseharbor-docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ProseHarbor Editor 文档站（VitePress）",
+  "author": "proseharbor-editor contributors",
+  "keywords": [
+    "editor",
+    "rich-text-editor",
+    "wysiwyg",
+    "prosemirror",
+    "tiptap",
+    "vue3",
+    "documentation"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "preview": "vitepress preview .",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.147",
+    "@iconify-json/tabler": "^1.2.42",
+    "@proseharbor-editor/core": "workspace:^",
+    "@proseharbor-editor/vue3": "workspace:^",
+    "@unocss/transformer-directives": "^66.12.0",
+    "@unocss/transformer-variant-group": "^66.12.0",
+    "unocss": "^66.12.0",
+    "unplugin-icons": "^24.0.0",
+    "unplugin-vue-components": "^32.1.0",
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.44"
+  },
+  "dependencies": {
+    "@vitepress-demo-preview/component": "^2.6.2",
+    "@vitepress-demo-preview/plugin": "^1.4.1",
+    "@vueuse/core": "^15.0.0",
+    "@vueuse/motion": "^3.0.3"
+  }
+}

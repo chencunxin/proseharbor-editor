@@ -1,0 +1,77 @@
+@use 'config' as *;
+
+.#{$prefix}.ProseMirror {
+  isolation: isolate;
+
+  &.resize-cursor {
+    cursor: col-resize;
+  }
+
+  .#{$prefix}__table-wrapper {
+    all: revert;
+    margin: 0;
+    margin-top: var(--#{$prefix}-margin);
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    all: revert;
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+    tr {
+      all: revert;
+    }
+
+    td,
+    th {
+      all: revert;
+      border: 1px solid rgba(var(--#{$prefix}-border-color-val), 1);
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 3px 5px;
+      position: relative;
+      vertical-align: top;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      background-color: rgba(var(--#{$prefix}-border-color-val), 0.4);
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .selectedCell:after {
+      background: rgba(var(--#{$prefix}-theme-primary-val), 0.4);
+      z-index: 2;
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    .column-resize-handle {
+      background-color: rgba(var(--#{$prefix}-theme-primary-val), 0.5);
+      pointer-events: none;
+      position: absolute;
+      right: -2px;
+      top: 0;
+      bottom: -2px;
+      width: 4px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

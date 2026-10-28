@@ -1,0 +1,40 @@
+@use '../config' as *;
+
+.#{$prefix}-tooltip {
+  width: auto;
+  height: auto;
+  padding: 3px 3px;
+  border-radius: 0.35rem;
+  background-color: var(--#{$prefix}-bg-color-inverse);
+  color: var(--#{$prefix}-text-color-inverse);
+  border: 1px solid var(--#{$prefix}-border-color-inverse);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &-text {
+    height: 20px;
+    line-height: 20px;
+    font-size: 11px;
+    margin-left: 3px;
+  }
+
+  &-shortcutkeys {
+    font-size: 10px;
+    display: flex;
+    gap: 2px;
+
+    &-key {
+      min-width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.3rem;
+      border-radius: 0.2rem;
+      background-color: var(--#{$prefix}-bg-color-inverse-1);
+      box-sizing: border-box;
+    }
+  }
+}

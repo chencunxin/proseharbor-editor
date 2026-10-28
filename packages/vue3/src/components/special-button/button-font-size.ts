@@ -1,0 +1,132 @@
+import { defineComponent, ref, h, computed } from 'vue'
+import { prefixClass, t } from '@proseharbor-editor/core'
+import { ITooltip, IButton, ITrigger, IIcon } from '../ui'
+
+type AnyRecord = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
+
+export default defineComponent({
+  name: 'ButtonFontSize',
+  props: {
+    editor: {
+      type: Object,
+      required: true,
+    },
+    menu: {
+      type: Object,
+      required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    const triggerRef = ref<AnyRecord | null>(null)
+    const isShown = ref(false)
+
+    const activeFont = computed(() => {
+      const attrs = props.editor.getAttributes('textStyle')
+      return props.menu.sizes?.find((v) => v.value === (attrs.fontSize || ''))
+    })
+
+    return () =>
+      h(
+        ITrigger,
+        {
+          ref: triggerRef,
+          disabled:
+            props.disabled ||
+            (props.menu.isDisabled &&
+              props.menu.isDisabled({
+                editor: props.editor,
+              })),
+          tippyOptions: {
+            placement: 'top',
+            onShown: () => {
+              isShown.value = true
+            },
+            onHide: () => {
+              isShown.value = false
+            },
+          },
+        },
+        {
+          default: () =>
+            h(
+              ITooltip,
+              { text: t(props.menu.name) },
+              {
+                default: () =>
+                  h(
+                    IButton,
+                    {
+                      disabled:
+                        props.disabled ||
+                        (props.menu.isDisabled &&
+                          props.menu.isDisabled({
+                            editor: props.editor,
+                          })),
+                      semiActive: isShown.value,
+                    },
+                    {
+                      default: () => [
+                        h(
+                          'div',
+                          {
+                            class: `${prefixClass}-special-button__text-box`,
+                          },
+                          t(
+                            activeFont.value?.value
+                              ? `sizes.${activeFont.value?.label}`
+                              : 'fontSize',
+                          ),
+                        ),
+                        h(IIcon, {
+                          name: 'down',
+                          style: {
+                            marginLeft: '0.1rem',
+                            marginTop: '0.1rem',
+                            fontSize: '8px',
+                          },
+                        }),
+                      ],
+                    },
+                  ),
+              },
+            ),
+          content: () =>
+            h('div', { class: `${prefixClass}-special-button__font-size` }, [
+              ...props.menu.sizes.map((item) => {
+                return h(
+                  IButton,
+                  {
+                    long: true,
+                    active: activeFont.value?.value === item.value,
+                    onClick: () => {
+                      props.menu.command({
+                        editor: props.editor,
+                        fontSize: item.value,
+                      })
+                      triggerRef.value?.hide()
+                    },
+                  },
+                  {
+                    default: () =>
+                      h(
+                        'span',
+                        {
+                          class: `${prefixClass}-special-button__font-size-btn-text`,
+                          style: {
+                            fontSize: props.menu?.type === 'default' ? item.value : '',
+                          },
+                        },
+                        t(`sizes.${item.label}`),
+                      ),
+                  },
+                )
+              }),
+            ]),
+        },
+      )
+  },
+})

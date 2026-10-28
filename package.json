@@ -1,0 +1,55 @@
+{
+  "name": "proseharbor-editor",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ProseHarbor Editor monorepo：核心编辑器 / Vue 3 适配层 / 文档 / 演示",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "yarn@4.18.1",
+  "workspaces": [
+    "packages/*",
+    "playground",
+    "docs"
+  ],
+  "engines": {
+    "node": "^22.11 || ^24 || >=26"
+  },
+  "scripts": {
+    "dev": "yarn workspace proseharbor-playground dev",
+    "build": "yarn workspaces foreach -A --topological-dev --exclude proseharbor-editor run build",
+    "build:packages": "yarn workspaces foreach -A --topological-dev --exclude proseharbor-editor --exclude proseharbor-docs --exclude proseharbor-playground run build",
+    "docs:dev": "yarn workspace proseharbor-docs dev",
+    "docs:build": "yarn workspace proseharbor-docs build",
+    "docs:preview": "yarn workspace proseharbor-docs preview",
+    "typecheck": "yarn build:packages && yarn workspaces foreach -A --exclude proseharbor-editor run typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "clean": "yarn workspaces foreach -A --exclude proseharbor-editor exec rimraf dist",
+    "changeset": "changeset",
+    "version:packages": "changeset version",
+    "release": "changeset publish",
+    "publish:packages": "yarn workspaces foreach -A --no-private --topological-dev npm publish --access public",
+    "prepare": "husky",
+    "commit": "czg",
+    "commitlint": "commitlint --edit",
+    "lint-staged": "lint-staged"
+  },
+  "devDependencies": {
+    "@changesets/changelog-git": "^1.0.0",
+    "@changesets/cli": "^3.0.3",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.18.0",
+    "cz-git": "^1.11.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.1",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vue-eslint-parser": "^9.4.3"
+  }
+}

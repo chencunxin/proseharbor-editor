@@ -1,0 +1,29 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ProseHarbor Editor">
+  <title>ProseHarbor Editor</title>
+  <defs>
+    <linearGradient id="ph-bg" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1F33"/>
+      <stop offset="1" stop-color="#123B5D"/>
+    </linearGradient>
+    <linearGradient id="ph-accent" x1="40" y1="42" x2="88" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2EC4B6"/>
+      <stop offset="1" stop-color="#7BE0D6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角方形底 -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#ph-bg)"/>
+
+  <!-- 锚钩 / 港湾弧 -->
+  <path d="M48 82C48 100 80 100 80 82" stroke="url(#ph-accent)" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- 锚杆 / 文本光标 -->
+  <rect x="60" y="34" width="8" height="56" rx="4" fill="#F7F9FC"/>
+
+  <!-- 锚横杆 -->
+  <rect x="40" y="42" width="48" height="8" rx="4" fill="url(#ph-accent)"/>
+
+  <!-- 文本行：Prose -->
+  <rect x="32" y="58" width="22" height="6" rx="3" fill="#F7F9FC" opacity="0.9"/>
+  <rect x="32" y="70" width="16" height="6" rx="3" fill="#F7F9FC" opacity="0.65"/>
+</svg>

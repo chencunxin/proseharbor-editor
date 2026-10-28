@@ -1,0 +1,244 @@
+@use 'config' as *;
+
+.#{$prefix}-editor-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+}
+
+.#{$prefix}.ProseMirror {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  transition: all 0.3s;
+  font-size: var(--#{$prefix}-font-size);
+  line-height: var(--#{$prefix}-line-height);
+  color: var(--#{$prefix}-text-color);
+  flex: 1 1 0%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: break-spaces;
+  -webkit-font-variant-ligatures: none;
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0;
+  cursor: text;
+  padding: 0.5rem 1rem 1rem 1rem;
+  font-family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+  box-sizing: border-box;
+
+  &:focus-visible {
+    outline: none !important;
+  }
+
+  p {
+    line-height: inherit;
+    margin: 0;
+    margin-top: var(--#{$prefix}-margin);
+  }
+
+  .ProseMirror-selectednode {
+    background-color: rgba(var(--#{$prefix}-theme-primary-val), 0.3);
+  }
+
+  // :nth-child(1) {
+  //   margin-top: 0;
+
+  //   > li:nth-child(1) {
+  //     margin-top: 0 !important;
+  //   }
+  // }
+
+  & [contenteditable='false'] {
+    white-space: normal;
+  }
+  & [contenteditable='false'] [contenteditable='true'] {
+    white-space: pre-wrap;
+  }
+  .ProseMirror-hideselection {
+    * {
+      caret-color: transparent;
+    }
+    *::selection {
+      background: transparent;
+    }
+    *::-moz-selection {
+      background: transparent;
+    }
+  }
+  @keyframes ProseMirror-cursor-blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  .ProseMirror-gapcursor {
+    display: none;
+    pointer-events: none;
+    position: absolute;
+    margin: 0;
+  }
+}
+
+// ProseMirror 包装器
+.#{$prefix}-prosemirror-wrapper {
+  width: 100%;
+  height: 100%;
+  flex: 1 1 0%;
+}
+
+// 代码编辑器包装器
+.#{$prefix}-code-editor-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  background-color: var(--#{$prefix}-bg-color);
+}
+
+// 行号样式
+.#{$prefix}-code-line-numbers {
+  width: 48px;
+  min-width: 48px;
+  padding: 0.5rem 0.5rem 1rem 0;
+  border-right: 1px solid var(--#{$prefix}-border-color, #e5e5e5);
+  background-color: var(--#{$prefix}-bg-color-secondary, #f5f5f5);
+  font-family: 'Menlo, Monaco, "Courier New", monospace';
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--#{$prefix}-text-color-secondary, #999);
+  text-align: right;
+  overflow: hidden;
+  white-space: pre;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+// 代码高亮区域
+.#{$prefix}-code-highlight {
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 0;
+  bottom: 0;
+  margin: 0 !important;
+  padding: 0.5rem 1rem 1rem 1rem !important;
+  border: none !important;
+  font-family: Menlo, Monaco, 'Courier New', monospace !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  line-height: 1.6 !important;
+  background: transparent !important;
+  pointer-events: none;
+  overflow: auto;
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  box-sizing: border-box !important;
+  tab-size: 2 !important;
+  -moz-tab-size: 2 !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  text-rendering: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-shadow: none !important;
+
+  // 隐藏滚动条但保持滚动功能
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  code {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    font-variant: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
+    word-spacing: inherit !important;
+    text-rendering: inherit !important;
+    -webkit-font-smoothing: inherit !important;
+    -moz-osx-font-smoothing: inherit !important;
+    text-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+}
+
+// 代码编辑器 textarea（透明覆盖层）
+.#{$prefix}-code-editor {
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0.5rem 1rem 1rem 1rem;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: Menlo, Monaco, 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1.6;
+  color: transparent;
+  background-color: transparent;
+  caret-color: var(--#{$prefix}-text-color);
+  box-sizing: border-box;
+  z-index: 1;
+  overflow: auto;
+  white-space: pre;
+  word-wrap: normal;
+  word-break: normal;
+  tab-size: 2;
+  -moz-tab-size: 2;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:focus {
+    outline: none;
+  }
+
+  // 隐藏滚动条但保持功能
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--#{$prefix}-scrollbar-color, #ccc);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--#{$prefix}-scrollbar-hover-color, #999);
+  }
+}

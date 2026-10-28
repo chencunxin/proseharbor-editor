@@ -1,0 +1,77 @@
+{
+  "name": "@proseharbor-editor/vue3",
+  "version": "0.0.0",
+  "description": "ProseHarbor Editor 的 Vue 3 组件与组合式 API 封装",
+  "license": "MIT",
+  "keywords": [
+    "editor",
+    "rich-text-editor",
+    "vue",
+    "vue3",
+    "prosemirror",
+    "proseharbor"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/preload-icons.ts"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "umd": "./dist/index.umd.js",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./umd": "./dist/index.umd.js",
+    "./dist/index.umd.js": "./dist/index.umd.js",
+    "./style.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css",
+    "./content.css": "./dist/content.css",
+    "./dist/content.css": "./dist/content.css"
+  },
+  "style": "dist/style.css",
+  "files": [
+    "src",
+    "dist",
+    "!dist/**/*.map"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build && vite build --config vite.content.config.ts && vue-tsc -p tsconfig.build.json",
+    "typecheck": "vue-tsc --noEmit",
+    "prepack": "yarn build"
+  },
+  "dependencies": {
+    "@iconify/vue": "^5.0.4",
+    "@proseharbor-editor/core": "workspace:^",
+    "prismjs": "^1.30.0",
+    "tippy.js": "^6.3.7",
+    "uuid": "^14.0.3"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@tiptap/pm": "^3.10.7",
+    "@types/prismjs": "^1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "prosemirror-state": "^1.4.3",
+    "sass": "^1.83.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.0"
+  }
+}

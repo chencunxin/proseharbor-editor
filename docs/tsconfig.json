@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["env.d.ts", "unocss.config.ts", ".vitepress/**/*.ts"],
+  "exclude": ["node_modules", ".vitepress/dist", ".vitepress/cache", ".vitepress/.temp"]
+}
