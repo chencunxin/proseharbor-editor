@@ -1,6 +1,6 @@
 {
   "name": "@proseharbor-editor/core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "基于 ProseMirror 的轻量、可插拔富文本编辑器内核",
   "license": "MIT",
   "keywords": [
