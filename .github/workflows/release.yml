@@ -62,12 +62,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build packages
+        if: steps.cs.outputs.publish == 'true'
+        run: yarn build:packages
+
+      # 仍交给 changesets/action 发布：它会额外 push git tag 并创建 GitHub Release
       - name: Publish to npm
         if: steps.cs.outputs.publish == 'true'
-        run: |
-          yarn build:packages
-          yarn release
+        uses: changesets/action@v1
+        with:
+          publish: yarn release
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
